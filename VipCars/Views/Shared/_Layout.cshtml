@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z7ZvN+irJdjURqJQF/oaVkukk5foGkW0j4y6R3" crossorigin="anonymous">
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -23,8 +26,15 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Index">Our Cars</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -35,10 +45,41 @@
         @RenderBody()
     </main>
 </div>
+<div class="container mt-4">
+    <div id="carouselExampleControls" class="carousel slide d-flex align-items-center justify-content-center" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @{
+                var wwwrootPath = WebHostEnvironment.WebRootPath;
+                var imagePath = "/mainpictures/";
+                var images = System.IO.Directory.EnumerateFiles($"{wwwrootPath}{imagePath}", "*.*", System.IO.SearchOption.TopDirectoryOnly)
+                                             .Where(s => s.EndsWith(".jpg") || s.EndsWith(".png") || s.EndsWith(".jpeg"))
+                                             .Select(s => imagePath + System.IO.Path.GetFileName(s))
+                                             .ToList();
+
+                for (var i = 0; i < images.Count; i++)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <img src="@images[i]" class="d-block mw-100" style="max-width: 150px; max-height: 250px;" alt="Image @(i + 1)">
+                    </div>
+                }
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2023 - VipCars - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2023 - VipCars
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -47,3 +88,5 @@
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

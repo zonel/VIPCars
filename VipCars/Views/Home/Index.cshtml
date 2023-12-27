@@ -1,8 +1,42 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Assuming a shared layout exists for the website
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="jumbotron">
+    <h1>Welcome to VIP Car Rentals!</h1>
+    <p>Rent luxury cars for your special occasions.</p>
+    <p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Cars")">View Cars</a>
+        }
+        else
+        {
+            <a class="btn btn-primary btn-lg" href="@Url.Action("Login", "Account")">Login to Rent</a>
+        }
+    </p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>About Us</h2>
+            <p>Learn more about our VIP car rental services.</p>
+            <p><a class="btn btn-secondary" href="@Url.Action("AboutUs", "Home")">Read More &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Our Cars</h2>
+            <p>Explore our fleet of luxury cars available for rent.</p>
+            <p><a class="btn btn-secondary" href="@Url.Action("Index", "Cars")">View Cars &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Contact</h2>
+            <p>Get in touch with us for any inquiries or assistance.</p>
+            <p><a class="btn btn-secondary" href="@Url.Action("Contact", "Home")">Contact &raquo;</a></p>
+        </div>
+    </div>
+
+    <hr>
+
 </div>
