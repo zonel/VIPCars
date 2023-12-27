@@ -13,4 +13,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\VipCars.Application\VipCars.Application.csproj" />
+      <ProjectReference Include="..\VipCars.Infrastructure\VipCars.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
