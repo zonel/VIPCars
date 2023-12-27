@@ -18,4 +18,8 @@
       <ProjectReference Include="..\VipCars.Infrastructure\VipCars.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    </ItemGroup>
+
 </Project>
