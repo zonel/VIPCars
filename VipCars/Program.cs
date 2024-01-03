@@ -1,21 +1,33 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using VipCars.Configuration;
 using VipCars.Infrastructure.Configuration;
+using VipCars.Infrastructure.Persistance;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllersWithViews();
 
-#region Dependency Injection
 
+var configuration = builder.Configuration;
+
+#region Dependency Injection Containers
 builder.Services
     .AddPresentation()
-    .AddInfrastructure()
+    .AddInfrastructure(configuration)
     .AddApplication();
-
 #endregion
 
+
+
 var app = builder.Build();
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+
+#region Database Initialization
+var dbContext = services.GetRequiredService<VipDbContext>();
+dbContext.Database.Migrate();
+#endregion
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
