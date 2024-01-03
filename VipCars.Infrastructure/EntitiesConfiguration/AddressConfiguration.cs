@@ -8,6 +8,8 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
 {
     public void Configure(EntityTypeBuilder<Address> builder)
     {
-
+        builder.HasOne(a => a.Customers)
+            .WithOne(u => u.Address)
+            .HasForeignKey<User>(u => u.AddressId);
     }
 }

@@ -16,5 +16,5 @@ public class User
     public ICollection<Order>? Orders { get; set; }
     
     public int UserRoleId { get; set; } = 2;
-    public Role? UserRole { get; set; }
+    public Role UserRole { get; set; }
 }

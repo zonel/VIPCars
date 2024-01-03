@@ -8,6 +8,12 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-        throw new NotImplementedException();
+        builder.HasOne(o => o.Car)
+            .WithMany(c => c.Orders)
+            .HasForeignKey(o => o.CarId);
+
+        builder.HasOne(o => o.Customer)
+            .WithMany(u => u.Orders)
+            .HasForeignKey(o => o.CustomerId);
     }
 }
