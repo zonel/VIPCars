@@ -5,16 +5,20 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using VipCars.Application.User.Commands.Authenticate;
 using VipCars.Domain.Commands;
+using VipCars.Domain.Entities;
+using VipCars.Domain.Repositories;
 
 namespace VipCars.Controllers;
 
 public class AccountController : Controller
 {
     private readonly IMediator _mediator;
+    private readonly IGenericRepository<User> _userRepository;
 
-    public AccountController(IMediator mediator)
+    public AccountController(IMediator mediator, IGenericRepository<User> userRepository)
     {
         _mediator = mediator;
+        _userRepository = userRepository;
     }
     
     [HttpGet]
@@ -34,9 +38,11 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid && await _mediator.Send(new AuthenticateUserCommand(model)))
         {
+            var loggedUser = await _userRepository.FindAsync(x => x.Email == model.Email);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Email),
+                new Claim(ClaimTypes.Name, loggedUser.FirstName+" "+loggedUser.LastName),
+                new Claim(ClaimTypes.Role, loggedUser.UserRoleId.ToString())
             };
 
             var claimsIdentity = new ClaimsIdentity(

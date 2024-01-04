@@ -9,8 +9,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasOne(u => u.Address)
-            .WithOne(a => a.Customers)
-            .HasForeignKey<User>(u => u.AddressId);
+            .WithMany(a => a.Users)
+            .HasForeignKey(u => u.AddressId);
 
         builder.HasOne(u => u.UserRole)
             .WithMany(r => r.Users)

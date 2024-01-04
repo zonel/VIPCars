@@ -11,5 +11,5 @@ public class Address
     public string BuildingNumber { get; set; }
     public string PostalCode { get; set; }
     
-    public User Customers { get; set; }
+    public IEnumerable<User> Users { get; set; }
 }
