@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using VipCars.Domain.Entities;
 using VipCars.Infrastructure.EntitiesConfiguration;
 
-namespace VipCars.Infrastructure.Persistance;
+namespace VipCars.Infrastructure.Persistence;
 
 public class VipDbContext : DbContext
 {

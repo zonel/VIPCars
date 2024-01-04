@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using VipCars.Domain.Repositories;
-using VipCars.Infrastructure.Persistance;
+using VipCars.Infrastructure.Persistence;
 
 namespace VipCars.Infrastructure.Repositories;
 
@@ -26,7 +26,12 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         return await _entities.ToListAsync();
     }
 
-    public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+    public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate)
+    {
+        return await _entities.Where(predicate).FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate)
     {
         return await _entities.Where(predicate).ToListAsync();
     }

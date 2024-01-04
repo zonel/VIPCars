@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using VipCars.Application.Configuration;
 using VipCars.Configuration;
 using VipCars.Infrastructure.Configuration;
-using VipCars.Infrastructure.Persistance;
+using VipCars.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();

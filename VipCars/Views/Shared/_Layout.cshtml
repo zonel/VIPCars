@@ -26,13 +26,26 @@
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Cars" asp-action="Index">Our Cars</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Cars" asp-action="Index">Cars</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AboutUs">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item login">
+                        <div class="login">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <p class="loggedInAs">You are logged in as @User.Identity.Name</p>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Logout", "Account")">Logout</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Login", "Account")">Login to Rent</a>
+                        }
+                        </div>
                     </li>
                     
                 </ul>

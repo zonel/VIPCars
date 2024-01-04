@@ -23,6 +23,8 @@ body {
   color: #fff;
 }
 
+
+
 .custom-bg-color {
   background-color: #191919; 
   color: white;
@@ -30,4 +32,20 @@ body {
 
 .custom-text-color {
   color: #258cfb;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align to the right */
+  width: 100%; /* Ensure the entire width is occupied */
+}
+
+.login p,
+.login a {
+  margin-right: 10px; 
+}
+
+.loggedInAs {
+  margin-top: 5px;
 }

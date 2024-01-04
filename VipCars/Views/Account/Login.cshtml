@@ -1,1 +1,28 @@
-﻿
+﻿@model VipCars.Domain.Commands.LoginCommand
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+<h2>Login</h2>
+    
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    <div>
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" />
+    </div>
+        
+    <div>
+        <label asp-for="Password">Password:</label>
+        <input asp-for="Password" type="password" />
+    </div>
+        
+    <div>
+        <input type="submit" value="Login" />
+    </div>
+}
+</body>
+</html>
