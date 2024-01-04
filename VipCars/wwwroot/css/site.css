@@ -19,4 +19,15 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #2e2e2e;
+  color: #fff;
+}
+
+.custom-bg-color {
+  background-color: #191919; 
+  color: white;
+}
+
+.custom-text-color {
+  color: #258cfb;
 }
