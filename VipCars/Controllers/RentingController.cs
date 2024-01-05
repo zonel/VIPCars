@@ -44,13 +44,13 @@ public class RentingController : Controller
         }
 
         var id = await _mediator.Send(new CreateOrderCommand(order));
+        
         return RedirectToAction("RentConfirmation");
     }
     
     // GET: Renting/RentConfirmation
     public IActionResult RentConfirmation()
     {
-        // This action can be used to show a confirmation page after a successful rental
         return View();
     }
 }
