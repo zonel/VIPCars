@@ -11,4 +11,13 @@ public class Order
     
     public Car Car { get; set; }
     public User Customer { get; set; } 
+    
+    public decimal CalculateTotalPrice(Order order, decimal pricePerDay)
+    {
+        var days = (order.RentalEndDate - order.RentalStartDate).Days;
+        return days * pricePerDay;
+    }
 }
+
+
+

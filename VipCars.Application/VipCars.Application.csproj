@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Order\Queries\" />
       <Folder Include="User\Commands\" />
       <Folder Include="User\Dto\" />
       <Folder Include="User\Mapping\" />

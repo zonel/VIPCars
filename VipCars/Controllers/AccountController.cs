@@ -42,7 +42,8 @@ public class AccountController : Controller
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, loggedUser.FirstName+" "+loggedUser.LastName),
-                new Claim(ClaimTypes.Role, loggedUser.UserRoleId.ToString())
+                new Claim(ClaimTypes.Role, loggedUser.UserRoleId.ToString()),
+                new Claim(ClaimTypes.Sid, loggedUser.Id.ToString()),
             };
 
             var claimsIdentity = new ClaimsIdentity(

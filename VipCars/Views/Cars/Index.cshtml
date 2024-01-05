@@ -1,1 +1,33 @@
-﻿
+﻿@model IEnumerable<VipCars.Domain.Entities.Car>
+
+@{
+    ViewData["Title"] = "Cars List";
+}
+
+<h1>Cars List</h1>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    @foreach (var car in Model)
+    {
+        <div class="col mb-3">
+            <div class="card bg-dark text-white">
+                <img src=@car.Url class="card-img-top" alt="Car Image Placeholder">
+                <div class="card-body">
+                    <h5 class="card-title">@car.Brand @car.Model</h5>
+                    <p class="card-text">
+                        <strong>Year:</strong> @car.YearOfProduction<br>
+                        <strong>Color:</strong> @car.Color<br>
+                        <strong>Transmission:</strong> @car.Transmission<br>
+                        <strong>Engine:</strong> @car.Engine<br>
+                        <strong>Fuel:</strong> @car.Fuel<br>
+                        <strong>Drive:</strong> @car.Drive<br>
+                        <strong>Description:</strong> @car.Description<br>
+                        <strong>Price Per Day:</strong> @car.PricePerDay<br>
+                    </p>
+                    <a asp-controller="Renting" asp-action="Create" asp-route-carId="@car.Id" class="btn btn-primary btn-sm">Rent Now</a>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

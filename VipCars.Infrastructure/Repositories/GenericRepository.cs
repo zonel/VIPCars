@@ -36,9 +36,12 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         return await _entities.Where(predicate).ToListAsync();
     }
 
-    public async Task AddAsync(TEntity entity)
+    public async Task<int> AddAsync(TEntity entity)
     {
-        await _entities.AddAsync(entity);
+        await _context.Set<TEntity>().AddAsync(entity);
+        await _context.SaveChangesAsync();
+        var property = _context.Entry(entity).Property("Id");
+        return (int)(property.CurrentValue ?? throw new InvalidOperationException());
     }
 
     public async Task AddRangeAsync(IEnumerable<TEntity> entities)
