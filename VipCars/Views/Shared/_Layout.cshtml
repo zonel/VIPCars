@@ -34,12 +34,20 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                     </li>
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Order" asp-action="AdminPanel">Admin Panel</a>
+                        </li>
+                    }
                     <li class="nav-item login">
                         <div class="login">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <p class="loggedInAs">You are logged in as @User.Identity.Name</p>
-                            <a class="btn btn-primary btn-sm" href="@Url.Action("Logout", "Account")">Logout</a>
+                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+                            </form>                        
                         }
                         else
                         {

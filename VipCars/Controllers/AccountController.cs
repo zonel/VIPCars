@@ -28,9 +28,11 @@ public class AccountController : Controller
     }
     
     [HttpPost]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
-        return Ok();
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        return RedirectToAction("Index", "Home"); 
     }
     
     [HttpPost]
