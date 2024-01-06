@@ -7,6 +7,9 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["VipCars/VipCars.csproj", "VipCars/"]
+COPY ["VipCars.Application/VipCars.Application.csproj", "VipCars.Application/"]
+COPY ["VipCars.Domain/VipCars.Domain.csproj", "VipCars.Domain/"]
+COPY ["VipCars.Infrastructure/VipCars.Infrastructure.csproj", "VipCars.Infrastructure/"]
 RUN dotnet restore "VipCars/VipCars.csproj"
 COPY . .
 WORKDIR "/src/VipCars"
