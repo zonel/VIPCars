@@ -24,7 +24,14 @@
                         <strong>Description:</strong> @car.Description<br>
                         <strong>Price Per Day:</strong> @car.PricePerDay<br>
                     </p>
-                    <a asp-controller="Renting" asp-action="Create" asp-route-carId="@car.Id" class="btn btn-primary btn-sm">Rent Now</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Renting" asp-action="Create" asp-route-carId="@car.Id" class="btn btn-primary btn-sm">Rent Now</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary btn-sm" href="@Url.Action("Login", "Account")">Login to Rent</a>
+                    }
 
                 </div>
             </div>
