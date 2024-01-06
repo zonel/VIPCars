@@ -8,12 +8,12 @@ using VipCars.Infrastructure.Repositories;
 
 namespace VipCars.Controllers;
 
-public class RentingController : Controller
+public class OrderController : Controller
 {
     private readonly IGenericRepository<Car> _carRepository;
     private readonly IMediator _mediator;
 
-    public RentingController(IGenericRepository<Car> carRepository, IMediator mediator)
+    public OrderController(IGenericRepository<Car> carRepository, IMediator mediator)
     {
         _mediator = mediator;
         _carRepository = carRepository;
@@ -30,6 +30,12 @@ public class RentingController : Controller
 
         ViewBag.SelectedCar = car;
 
+        var errorMessage = TempData["ErrorMessage"] as string;
+        if (!string.IsNullOrEmpty(errorMessage))
+        {
+            ViewBag.ErrorMessage = errorMessage;
+        }
+        
         return View();
     }
     
@@ -43,7 +49,16 @@ public class RentingController : Controller
             return BadRequest();
         }
 
-        var id = await _mediator.Send(new CreateOrderCommand(order));
+        try
+        {
+            var id = await _mediator.Send(new CreateOrderCommand(order));
+        }
+        catch (Exception ex) //TODO: Refactor this to show exceptions without reloading the page
+        {
+            TempData["ErrorMessage"] = ex.Message; 
+
+            return RedirectToAction("Create", new { carId = order.CarId });
+        }
         
         return RedirectToAction("RentConfirmation");
     }

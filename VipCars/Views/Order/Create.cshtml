@@ -9,6 +9,13 @@
     ViewData["Title"] = "Rent a Car";
 }
 
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <script>
+        alert('@ViewBag.ErrorMessage');
+    </script>
+}
+
 <h1>Rent a Car</h1>
 
 @if (ViewBag.SelectedCar != null)
@@ -36,7 +43,7 @@
             <div class="card bg-dark">
                 <div class="card-body">
                     <h5 class="card-title">Rent a Car</h5>
-                    <form asp-controller="Renting" asp-action="Create" method="post">
+                    <form asp-controller="Order" asp-action="Create" method="post">
                         <input type="hidden" asp-for="CustomerId" value="@User.FindFirstValue(ClaimTypes.Sid)" />
                         <input type="hidden" asp-for="CarId" value="@ViewBag.SelectedCar.Id" />
 

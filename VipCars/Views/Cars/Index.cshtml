@@ -26,7 +26,7 @@
                     </p>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a asp-controller="Renting" asp-action="Create" asp-route-carId="@car.Id" class="btn btn-primary btn-sm">Rent Now</a>
+                        <a asp-controller="Order" asp-action="Create" asp-route-carId="@car.Id" class="btn btn-primary btn-sm">Rent Now</a>
                     }
                     else
                     {
