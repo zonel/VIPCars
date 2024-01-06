@@ -14,4 +14,17 @@ public static class OrderMappings
             RentalEndDate = createOrderDto.RentalEndDate,
         };
     }
+    
+    public static ShowOrderDto MapToShowOrderDto(Domain.Entities.Order order)
+    {
+        return new ShowOrderDto
+        {
+            Id = order.Id,
+            CarId = order.CarId,
+            CustomerId = order.CustomerId,
+            RentalStartDate = order.RentalStartDate,
+            RentalEndDate = order.RentalEndDate,
+            TotalPrice = order.TotalPrice
+        };
+    }
 }

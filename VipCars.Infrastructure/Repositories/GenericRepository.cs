@@ -49,9 +49,16 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         await _entities.AddRangeAsync(entities);
     }
 
+    public Task UpdateAsync(TEntity entity)
+    {
+        _context.Entry(entity).State = EntityState.Modified;
+        return _context.SaveChangesAsync();
+    }
+
     public void Remove(TEntity entity)
     {
         _entities.Remove(entity);
+        _context.SaveChanges();
     }
 
     public void RemoveRange(IEnumerable<TEntity> entities)

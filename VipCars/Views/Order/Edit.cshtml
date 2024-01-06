@@ -1,0 +1,41 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model VipCars.Application.Order.Dto.ShowOrderDto
+
+<form asp-action="Edit" class="mt-4">
+    <input asp-for="Id" type="hidden" />
+    <div class="form-group row">
+        <label for="CarId" class="col-sm-2 col-form-label">Car ID:</label>
+        <div class="col-sm-10">
+            <input asp-for="CarId" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="CustomerId" class="col-sm-2 col-form-label">Customer ID:</label>
+        <div class="col-sm-10">
+            <input asp-for="CustomerId" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="RentalStartDate" class="col-sm-2 col-form-label">Rental Start Date:</label>
+        <div class="col-sm-10">
+            <input asp-for="RentalStartDate" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="RentalEndDate" class="col-sm-2 col-form-label">Rental End Date:</label>
+        <div class="col-sm-10">
+            <input asp-for="RentalEndDate" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="TotalPrice" class="col-sm-2 col-form-label">Total Price:</label>
+        <div class="col-sm-10">
+            <input asp-for="TotalPrice" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10 offset-sm-2">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>

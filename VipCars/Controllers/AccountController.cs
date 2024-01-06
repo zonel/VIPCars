@@ -64,6 +64,6 @@ public class AccountController : Controller
             return RedirectToAction("Index", "Home");
         }
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        return Ok();
+        return BadRequest();
     }
 }

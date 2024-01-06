@@ -1,0 +1,37 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<VipCars.Application.Order.Dto.ShowOrderDto>
+
+<div class="table-responsive">
+    <!-- Display Orders in a Table -->
+    <table class="table table-bordered table-hover bg-white">
+        <thead class="thead-dark">
+            <tr>
+                <th>Order ID</th>
+                <th>Car ID</th>
+                <th>Customer ID</th>
+                <th>Rental Start Date</th>
+                <th>Rental End Date</th>
+                <th>Total Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.CarId</td>
+                    <td>@order.CustomerId</td>
+                    <td>@order.RentalStartDate</td>
+                    <td>@order.RentalEndDate</td>
+                    <td>@order.TotalPrice</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@order.Id">View</a>
+                        <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@order.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@order.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

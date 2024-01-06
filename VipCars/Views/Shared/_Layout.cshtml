@@ -1,5 +1,11 @@
-﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z7ZvN+irJdjURqJQF/oaVkukk5foGkW0j4y6R3" crossorigin="anonymous">
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z7ZvN+irJdjURqJQF/oaVkukk5foGkW0j4y6R3" crossorigin="anonymous">
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
+
+@{
+    var userRoleIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +40,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                     </li>
-                    @if(User.IsInRole("Admin"))
+                    @if(userRoleIdClaim == "2")
                     {
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Order" asp-action="AdminPanel">Admin Panel</a>

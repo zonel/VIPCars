@@ -1,0 +1,13 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model VipCars.Application.Order.Dto.ShowOrderDto
+
+<!-- Delete Confirmation -->
+<h1>Confirm Deletion</h1>
+<p>Order ID: @Model.Id</p>
+<p>Car ID: @Model.CarId</p>
+<p>Customer ID: @Model.CustomerId</p>
+<p>Rental Start Date: @Model.RentalStartDate</p>
+<p>Rental End Date: @Model.RentalEndDate</p>
+<p>Total Price: @Model.TotalPrice</p>
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+    <input type="submit" value="Confirm Delete" /></form>
