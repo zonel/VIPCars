@@ -6,10 +6,11 @@
     <title>Login</title>
 </head>
 <body>
-<h2>Login</h2>
+
     
 @using (Html.BeginForm("Login", "Account", FormMethod.Post))
 {
+    <h2>Login</h2>
     <div>
         <label asp-for="Email">Email:</label>
         <input asp-for="Email" />

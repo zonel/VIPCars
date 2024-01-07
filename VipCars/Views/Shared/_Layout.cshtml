@@ -40,7 +40,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                     </li>
-                    @if(userRoleIdClaim == "2")
+                    @if(userRoleIdClaim == "1")
                     {
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Order" asp-action="AdminPanel">Admin Panel</a>
@@ -57,7 +57,7 @@
                         }
                         else
                         {
-                            <a class="btn btn-primary btn-sm" href="@Url.Action("Login", "Account")">Login to Rent</a>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Login", "Account")"style="background-color: #4caf50;">Login to Rent</a>
                         }
                         </div>
                     </li>

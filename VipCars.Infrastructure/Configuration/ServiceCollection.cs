@@ -16,7 +16,7 @@ public static class ServiceCollection
 
         services.AddDbContext<VipDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-        
+        services.AddScoped<SeedDatabase>();
         return services;
     }
 }

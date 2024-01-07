@@ -23,10 +23,8 @@ body {
   color: #fff;
 }
 
-
-
 .custom-bg-color {
-  background-color: #191919; 
+  background-color: #191919;
   color: white;
 }
 
@@ -43,9 +41,41 @@ body {
 
 .login p,
 .login a {
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .loggedInAs {
   margin-top: 5px;
+}
+
+h2 {
+  text-align: center;
+  color: #ffffff;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  color: #ffffff;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #555555;
+  color: #ffffff;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
 }

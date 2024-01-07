@@ -21,13 +21,21 @@ builder.Services
 
 
 var app = builder.Build();
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
 
-#region Database Initialization
-var dbContext = services.GetRequiredService<VipDbContext>();
-dbContext.Database.Migrate();
-#endregion
+    #region Database Initialization
+
+    var dbContext = services.GetRequiredService<VipDbContext>();
+    dbContext.Database.Migrate();
+    
+    var seedDatabase = services.GetRequiredService<SeedDatabase>();
+    seedDatabase.Seed(dbContext, null).Wait();
+    #endregion
+}
+
+
 
 if (!app.Environment.IsDevelopment())
 {

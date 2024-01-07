@@ -4,7 +4,6 @@
     ViewData["Title"] = "Cars List";
 }
 
-<h1>Cars List</h1>
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     @foreach (var car in Model)
@@ -22,7 +21,7 @@
                         <strong>Fuel:</strong> @car.Fuel<br>
                         <strong>Drive:</strong> @car.Drive<br>
                         <strong>Description:</strong> @car.Description<br>
-                        <strong>Price Per Day:</strong> @car.PricePerDay<br>
+                        <strong>Price Per Day:</strong> @car.PricePerDay pln<br>
                     </p>
                     @if (User.Identity.IsAuthenticated)
                     {
