@@ -1,66 +1,131 @@
-﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+﻿@model IEnumerable<VipCars.Domain.Entities.Car>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z7ZvN+irJdjURqJQF/oaVkukk5foGkW0j4y6R3" crossorigin="anonymous"
       xmlns="http://www.w3.org/1999/html">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml"; // Assuming a shared layout exists for the website
 }
 
-<div class="jumbotron">
-    <h1 style="text-align: center">Welcome to VIP Car Rentals!</h1>
-    <p style="text-align: center">Rent luxury cars for your special occasions.</p><br>
+<style>
+    *{
+    font-family: 'DM Sans', sans-serif;
+    }
+    .jumbotron {
+        position: relative;
+        overflow: hidden;
+        padding: 0;
+        margin-bottom: 0;
+    }
+    
+    .video-container {
+        position: relative;
+        width: 100%;
+        height: 0;
+        padding-bottom: 45%; /* Aspect ratio for 16:9 video */
+        overflow: hidden;
+    }
+    
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 805px; /* Adjusted to cover entire iframe */
+    }
+    
+    .text-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        color: white;
+        z-index: 1;
+    }
+    
+    .text-overlay h1{
+        margin-bottom: 0%; 
+    }
+    .text-overlay p {
+        margin-bottom: 40%; /* Remove default margin */
+    }
+    
+    .body-container {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        max-width: 100%;
+    } 
+    
+.thick-hr {
+  border: 0;
+  height: 5px; /* Increase the height to make the line thicker */
+  background-color: #a7a7a7; /* Change the color as needed */
+  margin: 20px 0; /* Adjust margin if necessary */
+}
+</style>
+
+<div class="full-width jumbotron jumbotron-fluid">
+    <div class="full-width video-container">
+        <iframe src="https://www.youtube.com/embed/B-BHskIaDuc?autoplay=1&start=15&mute=1&controls=0&showinfo=0&autohide=1&loop=1&playlist=B-BHskIaDuc&disablekb=1" frameborder="0" allowfullscreen></iframe>
+        <div class="text-overlay">
+            <div class="container">
+                <h1 class="display-1 fw-bold">Welcome to VIPCars</h1>
+                <p class="lead display-6">Rent luxury cars for your special occasions.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h2>About Us</h2>
-            <p>Learn more about our VIP car rental services.</p>
-            <p><a class="btn btn-secondary" href="@Url.Action("AboutUs", "Home")">Read More &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Our Cars</h2>
-            <p>Explore our fleet of luxury cars available for rent.</p>
-            <p><a class="btn btn-secondary" href="@Url.Action("Index", "Cars")">View Cars &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Contact</h2>
-            <p>Get in touch with us for any inquiries or assistance.</p>
-            <p><a class="btn btn-secondary" href="@Url.Action("Contact", "Home")">Contact &raquo;</a></p>
-        </div>
-    </div>
-    @* This is photo carousel *@
-    <div class="container mt-4">
-        <div id="carouselExampleControls" class="carousel slide d-flex align-items-center justify-content-center" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @{
-                    var wwwrootPath = WebHostEnvironment.WebRootPath;
-                    var imagePath = "/mainpictures/";
-                    var images = System.IO.Directory.EnumerateFiles($"{wwwrootPath}{imagePath}", "*.*", System.IO.SearchOption.TopDirectoryOnly)
-                        .Where(s => s.EndsWith(".jpg") || s.EndsWith(".png") || s.EndsWith(".jpeg"))
-                        .Select(s => imagePath + System.IO.Path.GetFileName(s))
-                        .ToList();
-
-                    for (var i = 0; i < images.Count; i++)
-                    {
-                        <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <img src="@images[i]" class="d-block mw-100" style="max-width: 150px; max-height: 250px;" alt="Image @(i + 1)">
-                        </div>
-                    }
-                }
+            <div class="card bg-dark mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">About Us</h2>
+                    <p class="card-text">Learn more about our VIP car rental services.</p>
+                    <a class="btn btn-secondary" href="@Url.Action("AboutUs", "Home")">Read More &raquo;</a>
+                </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Our Cars</h2>
+                    <p class="card-text">Explore our fleet of luxury cars available for rent.</p>
+                    <a class="btn btn-secondary" href="@Url.Action("Index", "Cars")">View Cars &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Contact</h2>
+                    <p class="card-text">Get in touch with us for any inquiries or assistance.</p>
+                    <a class="btn btn-secondary" href="@Url.Action("Contact", "Home")">Contact &raquo;</a>
+                </div>
+            </div>
         </div>
     </div>
-    <hr>
+</div>
+
+<hr class="thick-hr">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="display-6">Our Cars</h2>
+        </div>
+    </div>
+@await Html.PartialAsync("_CarList")
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
