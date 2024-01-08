@@ -31,11 +31,9 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
     
     var seedDatabase = services.GetRequiredService<SeedDatabase>();
-    seedDatabase.Seed(dbContext, null).Wait();
+    await seedDatabase.Seed(dbContext, null);
     #endregion
 }
-
-
 
 if (!app.Environment.IsDevelopment())
 {
