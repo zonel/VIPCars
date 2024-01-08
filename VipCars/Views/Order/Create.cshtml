@@ -16,8 +16,13 @@
     </script>
 }
 
-<h1>Rent a Car</h1>
+<style>
+    input[type="text"] {
+        width: 50%;
+    }
+</style>
 
+<h1>Rent a Car</h1>
 @if (ViewBag.SelectedCar != null)
 {
     <div class="row">
@@ -57,6 +62,10 @@
                             <input asp-for="RentalEndDate" class="form-control datepicker" />
                             <span asp-validation-for="RentalEndDate" class="text-danger"></span>
                         </div><br/>
+                        <div class="form-group">
+                            <label>Total Price:</label>
+                            <input id="totalPrice" class="form-control" readonly />
+                        </div><br />
                         <input type="submit" value="Rent Car" class="btn btn-primary" />
                     </form>
                 </div>
@@ -79,5 +88,45 @@
             });
         });
     </script>
+    
+    <script>
+            $(function () {
+                $(".datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    minDate: 0
+                });
+    
+                // Function to calculate total price
+                function calculateTotalPrice() {
+                    var startDate = new Date($('#RentalStartDate').val());
+                    var endDate = new Date($('#RentalEndDate').val());
+                    var pricePerDay = parseFloat('@ViewBag.SelectedCar.PricePerDay');
+    
+                    if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime()) && pricePerDay) {
+                        var timeDiff = endDate.getTime() - startDate.getTime();
+                        var daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Calculate number of days
+    
+                        if (daysDiff > 0) {
+                            var totalPrice = pricePerDay * daysDiff;
+                            $('#totalPrice').val(totalPrice.toFixed(2)); // Display total price
+                        } else {
+                            $('#totalPrice').val('Invalid dates');
+                        }
+                    } else {
+                        $('#totalPrice').val('Incomplete information');
+                    }
+                }
+    
+                // Calculate total price when dates change
+                $('#RentalStartDate, #RentalEndDate').change(function () {
+                    calculateTotalPrice();
+                });
+    
+                // Initial calculation on page load if both dates are filled
+                if ($('#RentalStartDate').val() && $('#RentalEndDate').val()) {
+                    calculateTotalPrice();
+                }
+            });
+        </script>
 }
 

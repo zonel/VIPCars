@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VipCars.Application.Order.Commands.Create;
 using VipCars.Application.Order.Dto;
@@ -70,6 +71,7 @@ public class OrderController : Controller
     }
     
     [HttpGet]
+    [Authorize(Roles = "1")]
     public async Task<IActionResult> AdminPanel()
     {
         var orders = await _orderRepository.GetAllAsync();
@@ -77,6 +79,7 @@ public class OrderController : Controller
         return View(showOrders);
     }
     
+    [Authorize(Roles = "1")]
     public async Task<IActionResult> Details(int id)
     {
         var order = await _orderRepository.GetByIdAsync(id);
@@ -88,7 +91,7 @@ public class OrderController : Controller
         return View(showOrder);
     }
 
-    // Edit Order - GET
+    [Authorize(Roles = "1")]
     public async Task<IActionResult> Edit(int id)
     {
         var order = await _orderRepository.GetByIdAsync(id);
@@ -100,8 +103,9 @@ public class OrderController : Controller
         return View(showOrder);
     }
 
-    // Edit Order - POST
+    
     [HttpPost]
+    [Authorize(Roles = "1")]
     public async Task<IActionResult> Edit(ShowOrderDto showOrder)
     {
         if (!ModelState.IsValid)
@@ -125,7 +129,7 @@ public class OrderController : Controller
         return RedirectToAction("AdminPanel");
     }
 
-    // Delete Order - GET
+    [Authorize(Roles = "1")]
     public async Task<IActionResult> Delete(int id)
     {
         var order = await _orderRepository.GetByIdAsync(id);
@@ -137,7 +141,8 @@ public class OrderController : Controller
         return View(showOrder);
     }
 
-    // Delete Order - POST
+
+    [Authorize(Roles = "1")]
     [HttpPost("{id}")]
     public async Task<IActionResult> DeleteConfirmed([FromRoute]int id)
     {
