@@ -1,0 +1,33 @@
+networks:
+  vipcars:
+
+services:
+  vipcarsdb:
+    container_name: vipcarsdb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "8002:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123
+      - MSSQL_SA_PASSWORD=Password123
+      - MSSQL_PID=Developer
+      - MSSQL_TCP_PORT=1433
+    networks:
+      - vipcars
+  
+  vipcarsapp:
+    container_name: vipcarsapp
+    image: vipcarsapp
+    build:
+      context: .
+      dockerfile: VipCars/Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - vipcarsdb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - vipcars
