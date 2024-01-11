@@ -6,7 +6,6 @@ using VipCars.Application.Order.Dto;
 using VipCars.Application.Order.Mapping;
 using VipCars.Domain.Entities;
 using VipCars.Domain.Repositories;
-using VipCars.Infrastructure.Repositories;
 
 namespace VipCars.Controllers;
 

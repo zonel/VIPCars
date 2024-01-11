@@ -1,5 +1,12 @@
 ﻿@model VipCars.Domain.Commands.LoginCommand
 
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <script>
+        alert('@ViewBag.ErrorMessage');
+    </script>
+}
+
 <!DOCTYPE html>
 <html>
 <head>

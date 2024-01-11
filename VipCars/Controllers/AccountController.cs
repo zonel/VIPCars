@@ -1,3 +1,4 @@
+using System.Security.Authentication;
 using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -24,6 +25,12 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Login()
     {
+        var errorMessage = TempData["ErrorMessage"] as string;
+        if (!string.IsNullOrEmpty(errorMessage))
+        {
+            ViewBag.ErrorMessage = errorMessage;
+        }
+        
         return View();
     }
     
@@ -38,32 +45,42 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginCommand model)
     {
-        if (ModelState.IsValid && await _mediator.Send(new AuthenticateUserCommand(model)))
+        try
         {
-            var loggedUser = await _userRepository.FindAsync(x => x.Email == model.Email);
-            var claims = new List<Claim>
+
+            if (ModelState.IsValid && await _mediator.Send(new AuthenticateUserCommand(model)))
             {
-                new Claim(ClaimTypes.Name, loggedUser.FirstName+" "+loggedUser.LastName),
-                new Claim(ClaimTypes.Role, loggedUser.UserRoleId.ToString()),
-                new Claim(ClaimTypes.Sid, loggedUser.Id.ToString()),
-            };
+                var loggedUser = await _userRepository.FindAsync(x => x.Email == model.Email);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, loggedUser.FirstName + " " + loggedUser.LastName),
+                    new Claim(ClaimTypes.Role, loggedUser.UserRoleId.ToString()),
+                    new Claim(ClaimTypes.Sid, loggedUser.Id.ToString()),
+                };
 
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties
-            {
-                // Configure any authentication properties if needed
-            };
+                var authProperties = new AuthenticationProperties
+                {
+                    // Configure any authentication properties if needed
+                };
 
-            HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
-            
-            return RedirectToAction("Index", "Home");
+                HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            throw new InvalidCredentialException("Email or password is incorrect.");
         }
-        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        return BadRequest();
+        catch(Exception ex)
+        {
+            TempData["ErrorMessage"] = ex.Message; 
+
+            return RedirectToAction("Login");
+        }
     }
 }
